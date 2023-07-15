@@ -1,8 +1,8 @@
-﻿using Kognit.API.Application.Features.Positions.Commands.CreatePosition;
-using Kognit.API.Application.Features.Positions.Commands.DeletePositionById;
-using Kognit.API.Application.Features.Positions.Commands.UpdatePosition;
-using Kognit.API.Application.Features.Positions.Queries.GetPositionById;
-using Kognit.API.Application.Features.Positions.Queries.GetPositions;
+﻿using Kognit.API.Application.Features.Users.Commands.CreatePosition;
+using Kognit.API.Application.Features.Users.Commands.DeletePositionById;
+using Kognit.API.Application.Features.Users.Commands.UpdateUser;
+using Kognit.API.Application.Features.Users.Queries.GetUserById;
+using Kognit.API.Application.Features.Users.Queries.GetUsers;
 using Kognit.API.WebApi.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -10,12 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Kognit.API.WebApi.Controllers
 {
     [ApiVersion("1.0")]
-    public class PositionsController : BaseController
+    public class UserController : BaseController
     {
 
         /// <summary>
@@ -24,7 +22,7 @@ namespace Kognit.API.WebApi.Controllers
         /// <param name="filter">The filter used to query the positions.</param>
         /// <returns>A list of positions.</returns>
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] GetPositionsQuery filter)
+        public async Task<IActionResult> Get([FromQuery] GetUsersQuery filter)
         {
             return Ok(await Mediator.Send(filter));
         }
@@ -37,7 +35,7 @@ namespace Kognit.API.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            return Ok(await Mediator.Send(new GetPositionByIdQuery { Id = id }));
+            return Ok(await Mediator.Send(new GetUserByIdQuery { Id = id }));
         }
 
         /// <summary>
@@ -62,7 +60,7 @@ namespace Kognit.API.WebApi.Controllers
         /// <returns>The updated position.</returns>
         [HttpPut("{id}")]
         [Authorize(Policy = AuthorizationConsts.AdminPolicy)]
-        public async Task<IActionResult> Put(Guid id, UpdatePositionCommand command)
+        public async Task<IActionResult> Put(Guid id, UpdateUserCommand command)
         {
             if (id != command.Id)
             {

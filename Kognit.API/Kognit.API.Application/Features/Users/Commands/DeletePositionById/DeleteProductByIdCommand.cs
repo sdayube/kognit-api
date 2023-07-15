@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kognit.API.Application.Features.Positions.Commands.DeletePositionById
+namespace Kognit.API.Application.Features.Users.Commands.DeletePositionById
 {
     public class DeletePositionByIdCommand : IRequest<Response<Guid>>
     {
@@ -14,9 +14,9 @@ namespace Kognit.API.Application.Features.Positions.Commands.DeletePositionById
 
         public class DeletePositionByIdCommandHandler : IRequestHandler<DeletePositionByIdCommand, Response<Guid>>
         {
-            private readonly IPositionRepositoryAsync _positionRepository;
+            private readonly IUserRepositoryAsync _positionRepository;
 
-            public DeletePositionByIdCommandHandler(IPositionRepositoryAsync positionRepository)
+            public DeletePositionByIdCommandHandler(IUserRepositoryAsync positionRepository)
             {
                 _positionRepository = positionRepository;
             }

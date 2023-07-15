@@ -7,7 +7,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kognit.API.Application.Features.Positions.Commands.CreatePosition
+namespace Kognit.API.Application.Features.Users.Commands.CreatePosition
 {
     public partial class CreatePositionCommand : IRequest<Response<Guid>>
     {
@@ -19,10 +19,10 @@ namespace Kognit.API.Application.Features.Positions.Commands.CreatePosition
 
     public class CreatePositionCommandHandler : IRequestHandler<CreatePositionCommand, Response<Guid>>
     {
-        private readonly IPositionRepositoryAsync _positionRepository;
+        private readonly IUserRepositoryAsync _positionRepository;
         private readonly IMapper _mapper;
 
-        public CreatePositionCommandHandler(IPositionRepositoryAsync positionRepository, IMapper mapper)
+        public CreatePositionCommandHandler(IUserRepositoryAsync positionRepository, IMapper mapper)
         {
             _positionRepository = positionRepository;
             _mapper = mapper;
@@ -30,7 +30,7 @@ namespace Kognit.API.Application.Features.Positions.Commands.CreatePosition
 
         public async Task<Response<Guid>> Handle(CreatePositionCommand request, CancellationToken cancellationToken)
         {
-            var position = _mapper.Map<Position>(request);
+            var position = _mapper.Map<User>(request);
             await _positionRepository.AddAsync(position);
             return new Response<Guid>(position.Id);
         }

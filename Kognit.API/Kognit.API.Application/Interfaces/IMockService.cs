@@ -5,10 +5,10 @@ namespace Kognit.API.Application.Interfaces
 {
     public interface IMockService
     {
-        List<Position> GetPositions(int rowCount);
+        List<User> GetPositions(int rowCount);
 
         List<Employee> GetEmployees(int rowCount);
 
-        List<Position> SeedPositions(int rowCount);
+        List<User> SeedPositions(int rowCount);
     }
 }

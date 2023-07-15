@@ -3,13 +3,13 @@ using Kognit.API.Application.Interfaces.Repositories;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kognit.API.Application.Features.Positions.Commands.CreatePosition
+namespace Kognit.API.Application.Features.Users.Commands.CreatePosition
 {
     public class CreatePositionCommandValidator : AbstractValidator<CreatePositionCommand>
     {
-        private readonly IPositionRepositoryAsync positionRepository;
+        private readonly IUserRepositoryAsync positionRepository;
 
-        public CreatePositionCommandValidator(IPositionRepositoryAsync positionRepository)
+        public CreatePositionCommandValidator(IUserRepositoryAsync positionRepository)
         {
             this.positionRepository = positionRepository;
 
@@ -27,7 +27,7 @@ namespace Kognit.API.Application.Features.Positions.Commands.CreatePosition
 
         private async Task<bool> IsUniquePositionNumber(string positionNumber, CancellationToken cancellationToken)
         {
-            return await positionRepository.IsUniquePositionNumberAsync(positionNumber);
+            return await positionRepository.IsUniqueCpfAsync(positionNumber);
         }
     }
 }

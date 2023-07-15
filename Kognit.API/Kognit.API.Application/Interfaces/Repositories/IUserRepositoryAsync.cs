@@ -1,5 +1,6 @@
-﻿using Kognit.API.Application.Features.Positions.Queries.GetPositions;
+﻿using Kognit.API.Application.Features.Users.Queries.GetUsers;
 using Kognit.API.Application.Parameters;
+using Kognit.API.Domain.Common;
 using Kognit.API.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -23,12 +24,12 @@ namespace Kognit.API.Application.Interfaces.Repositories
     /// <returns>
     /// Task containing the paged response.
     /// </returns>    
-    public interface IPositionRepositoryAsync : IGenericRepositoryAsync<Position>
+    public interface IUserRepositoryAsync : IRepositoryAsync<User>
     {
-        Task<bool> IsUniquePositionNumberAsync(string positionNumber);
+        Task<bool> IsUniqueCpfAsync(string positionNumber);
 
         Task<bool> SeedDataAsync(int rowCount);
 
-        Task<(IEnumerable<Entity> data, RecordsCount recordsCount)> GetPagedPositionReponseAsync(GetPositionsQuery requestParameters);
+        Task<(IEnumerable<DynamicEntity> data, RecordsCount recordsCount)> GetPaginatedUserReponseAsync(GetUsersQuery requestParameters);
     }
 }

@@ -19,28 +19,28 @@
             <param name="query">The query parameters for the paged list.</param>
             <returns>A paged list of employees.</returns>
         </member>
-        <member name="M:Kognit.API.WebApi.Controllers.PositionsController.Get(Kognit.API.Application.Features.Positions.Queries.GetPositions.GetPositionsQuery)">
+        <member name="M:Kognit.API.WebApi.Controllers.UserController.Get(Kognit.API.Application.Features.Users.Queries.GetUsers.GetUsersQuery)">
             <summary>
             Gets a list of positions based on the provided filter.
             </summary>
             <param name="filter">The filter used to query the positions.</param>
             <returns>A list of positions.</returns>
         </member>
-        <member name="M:Kognit.API.WebApi.Controllers.PositionsController.Get(System.Guid)">
+        <member name="M:Kognit.API.WebApi.Controllers.UserController.Get(System.Guid)">
             <summary>
             Gets a position by its Id.
             </summary>
             <param name="id">The Id of the position.</param>
             <returns>The position with the specified Id.</returns>
         </member>
-        <member name="M:Kognit.API.WebApi.Controllers.PositionsController.Post(Kognit.API.Application.Features.Positions.Commands.CreatePosition.CreatePositionCommand)">
+        <member name="M:Kognit.API.WebApi.Controllers.UserController.Post(Kognit.API.Application.Features.Users.Commands.CreatePosition.CreatePositionCommand)">
             <summary>
             Creates a new position.
             </summary>
             <param name="command">The command containing the data for the new position.</param>
             <returns>A 201 Created response containing the newly created position.</returns>
         </member>
-        <member name="M:Kognit.API.WebApi.Controllers.PositionsController.Put(System.Guid,Kognit.API.Application.Features.Positions.Commands.UpdatePosition.UpdatePositionCommand)">
+        <member name="M:Kognit.API.WebApi.Controllers.UserController.Put(System.Guid,Kognit.API.Application.Features.Users.Commands.UpdateUser.UpdateUserCommand)">
             <summary>
             Updates a position with the given id using the provided command.
             </summary>
@@ -48,7 +48,7 @@
             <param name="command">The command containing the updated information.</param>
             <returns>The updated position.</returns>
         </member>
-        <member name="M:Kognit.API.WebApi.Controllers.PositionsController.Delete(System.Guid)">
+        <member name="M:Kognit.API.WebApi.Controllers.UserController.Delete(System.Guid)">
             <summary>
             Deletes a position by its Id.
             </summary>
@@ -90,6 +90,12 @@
             <summary>
                 Adiciona a versão 1.0 da API como padrão, e a utiliza quando a versão não for especificada na rota.
             </summary>
+        </member>
+        <member name="M:Kognit.API.WebApi.Extensions.ServiceExtensions.AddRoutingExtension(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+                Adiciona o serviço de roteamento e configura para utilizar URLs em minúsculo.
+            </summary>
+            <param name="services"></param>
         </member>
     </members>
 </doc>

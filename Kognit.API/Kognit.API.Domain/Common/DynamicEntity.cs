@@ -6,14 +6,14 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace Kognit.API.Domain.Entities
+namespace Kognit.API.Domain.Common
 {
-    public class Entity : DynamicObject, IXmlSerializable, IDictionary<string, object>
+    public class DynamicEntity : DynamicObject, IXmlSerializable, IDictionary<string, object>
     {
-        private readonly string _root = "Entity";
+        private readonly string _root = "DynamicEntity";
         private readonly IDictionary<string, object> _expando = null;
 
-        public Entity()
+        public DynamicEntity()
         {
             _expando = new ExpandoObject();
         }

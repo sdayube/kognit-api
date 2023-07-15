@@ -24,11 +24,9 @@ namespace Kognit.API.Infrastructure.Persistence.Contexts
             _loggerFactory = loggerFactory;
         }
 
-        public DbSet<Position> Positions { get; set; }
-
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (var entry in ChangeTracker.Entries<AuditableBaseEntity>())
+            foreach (var entry in ChangeTracker.Entries<BaseEntity>())
             {
                 switch (entry.State)
                 {
@@ -48,7 +46,7 @@ namespace Kognit.API.Infrastructure.Persistence.Contexts
         {
             var _mockData = this.Database.GetService<IMockService>();
             var seedPositions = _mockData.SeedPositions(1000);
-            builder.Entity<Position>().HasData(seedPositions);
+            builder.Entity<User>().HasData(seedPositions);
 
             base.OnModelCreating(builder);
         }

@@ -17,7 +17,7 @@ namespace Kognit.API.Application
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-            services.AddScoped<IDataShapeHelper<Position>, DataShapeHelper<Position>>();
+            services.AddScoped<IDataShapeHelper<User>, DataShapeHelper<User>>();
             services.AddScoped<IDataShapeHelper<Employee>, DataShapeHelper<Employee>>();
             services.AddScoped<IModelHelper, ModelHelper>();
             //services.AddScoped<IMockData, MockData>();

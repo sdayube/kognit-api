@@ -1,5 +1,6 @@
 ﻿using Kognit.API.Application.Features.Employees.Queries.GetEmployees;
 using Kognit.API.Application.Parameters;
+using Kognit.API.Domain.Common;
 using Kognit.API.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,8 +14,8 @@ namespace Kognit.API.Application.Interfaces.Repositories
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// </returns>
-    public interface IEmployeeRepositoryAsync : IGenericRepositoryAsync<Employee>
+    public interface IEmployeeRepositoryAsync : IRepositoryAsync<Employee>
     {
-        Task<(IEnumerable<Entity> data, RecordsCount recordsCount)> GetPagedEmployeeResponseAsync(GetEmployeesQuery requestParameters);
+        Task<(IEnumerable<DynamicEntity> data, RecordsCount recordsCount)> GetPagedEmployeeResponseAsync(GetEmployeesQuery requestParameters);
     }
 }

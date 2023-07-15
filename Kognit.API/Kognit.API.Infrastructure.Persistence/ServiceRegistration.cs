@@ -28,8 +28,8 @@ namespace Kognit.API.Infrastructure.Persistence
 
             #region Repositories
 
-            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
-            services.AddTransient<IPositionRepositoryAsync, PositionRepositoryAsync>();
+            services.AddTransient(typeof(IRepositoryAsync<>), typeof(BaseRepositoryAsync<>));
+            services.AddTransient<IUserRepositoryAsync, UserRepositoryAsync>();
             services.AddTransient<IEmployeeRepositoryAsync, EmployeeRepositoryAsync>();
 
             #endregion Repositories

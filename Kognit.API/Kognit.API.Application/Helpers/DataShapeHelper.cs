@@ -1,5 +1,5 @@
 ﻿using Kognit.API.Application.Interfaces;
-using Kognit.API.Domain.Entities;
+using Kognit.API.Domain.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,21 +17,21 @@ namespace Kognit.API.Application.Helpers
             Properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
         }
 
-        public IEnumerable<Entity> ShapeData(IEnumerable<T> entities, string fieldsString)
+        public IEnumerable<DynamicEntity> ShapeData(IEnumerable<T> entities, string fieldsString)
         {
             var requiredProperties = GetRequiredProperties(fieldsString);
 
             return FetchData(entities, requiredProperties);
         }
 
-        public async Task<IEnumerable<Entity>> ShapeDataAsync(IEnumerable<T> entities, string fieldsString)
+        public async Task<IEnumerable<DynamicEntity>> ShapeDataAsync(IEnumerable<T> entities, string fieldsString)
         {
             var requiredProperties = GetRequiredProperties(fieldsString);
 
             return await Task.Run(() => FetchData(entities, requiredProperties));
         }
 
-        public Entity ShapeData(T entity, string fieldsString)
+        public DynamicEntity ShapeData(T entity, string fieldsString)
         {
             var requiredProperties = GetRequiredProperties(fieldsString);
 
@@ -64,9 +64,9 @@ namespace Kognit.API.Application.Helpers
             return requiredProperties;
         }
 
-        private IEnumerable<Entity> FetchData(IEnumerable<T> entities, IEnumerable<PropertyInfo> requiredProperties)
+        private IEnumerable<DynamicEntity> FetchData(IEnumerable<T> entities, IEnumerable<PropertyInfo> requiredProperties)
         {
-            var shapedData = new List<Entity>();
+            var shapedData = new List<DynamicEntity>();
 
             foreach (var entity in entities)
             {
@@ -77,9 +77,9 @@ namespace Kognit.API.Application.Helpers
             return shapedData;
         }
 
-        private Entity FetchDataForEntity(T entity, IEnumerable<PropertyInfo> requiredProperties)
+        private DynamicEntity FetchDataForEntity(T entity, IEnumerable<PropertyInfo> requiredProperties)
         {
-            var shapedObject = new Entity();
+            var shapedObject = new DynamicEntity();
 
             foreach (var property in requiredProperties)
             {

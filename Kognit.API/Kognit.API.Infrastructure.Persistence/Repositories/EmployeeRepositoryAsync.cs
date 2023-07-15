@@ -2,6 +2,7 @@
 using Kognit.API.Application.Interfaces;
 using Kognit.API.Application.Interfaces.Repositories;
 using Kognit.API.Application.Parameters;
+using Kognit.API.Domain.Common;
 using Kognit.API.Domain.Entities;
 using Kognit.API.Infrastructure.Persistence.Contexts;
 using Kognit.API.Infrastructure.Persistence.Repository;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Kognit.API.Infrastructure.Persistence.Repositories
 {
-    public class EmployeeRepositoryAsync : GenericRepositoryAsync<Employee>, IEmployeeRepositoryAsync
+    public class EmployeeRepositoryAsync : BaseRepositoryAsync<Employee>, IEmployeeRepositoryAsync
     {
         private readonly IDataShapeHelper<Employee> _dataShaper;
         private readonly IMockService _mockData;
@@ -31,7 +32,7 @@ namespace Kognit.API.Infrastructure.Persistence.Repositories
         /// </returns>
         public EmployeeRepositoryAsync(ApplicationDbContext dbContext,
             IDataShapeHelper<Employee> dataShaper,
-            IMockService mockData) : base(dbContext)
+            IMockService mockData) : base(dbContext, dataShaper)
         {
             _dataShaper = dataShaper;
             _mockData = mockData;
@@ -44,7 +45,7 @@ namespace Kognit.API.Infrastructure.Persistence.Repositories
         /// </summary>
         /// <param name="requestParameters">The query parameters used to filter and page the data.</param>
         /// <returns>A tuple containing the paged list of employees and the total number of records.</returns>
-        public async Task<(IEnumerable<Entity> data, RecordsCount recordsCount)> GetPagedEmployeeResponseAsync(GetEmployeesQuery requestParameters)
+        public async Task<(IEnumerable<DynamicEntity> data, RecordsCount recordsCount)> GetPagedEmployeeResponseAsync(GetEmployeesQuery requestParameters)
         {
             IQueryable<Employee> result;
 
@@ -56,6 +57,7 @@ namespace Kognit.API.Infrastructure.Persistence.Repositories
             var pageNumber = requestParameters.PageNumber;
             var pageSize = requestParameters.PageSize;
             var orderBy = requestParameters.OrderBy;
+            var direction = requestParameters.OrderDirection ?? "ASC";
             var fields = requestParameters.Fields;
 
             int recordsTotal, recordsFiltered;

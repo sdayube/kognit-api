@@ -14,7 +14,7 @@ namespace Kognit.API.Infrastructure.Shared.Services
         /// </summary>
         /// <param name="rowCount">The number of positions to generate.</param>
         /// <returns>A list of generated positions.</returns>
-        public List<Position> GetPositions(int rowCount)
+        public List<User> GetPositions(int rowCount)
         {
             var faker = new PositionInsertBogusConfig();
             return faker.Generate(rowCount);
@@ -40,7 +40,7 @@ namespace Kognit.API.Infrastructure.Shared.Services
         /// </summary>
         /// <param name="rowCount">The number of seed positions to generate.</param>
         /// <returns>A list of seed positions.</returns>
-        public List<Position> SeedPositions(int rowCount)
+        public List<User> SeedPositions(int rowCount)
         {
             var faker = new PositionSeedBogusConfig();
             return faker.Generate(rowCount);

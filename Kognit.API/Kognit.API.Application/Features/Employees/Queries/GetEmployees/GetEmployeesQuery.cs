@@ -3,7 +3,7 @@ using Kognit.API.Application.Interfaces;
 using Kognit.API.Application.Interfaces.Repositories;
 using Kognit.API.Application.Parameters;
 using Kognit.API.Application.Wrappers;
-using Kognit.API.Domain.Entities;
+using Kognit.API.Domain.Common;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;
@@ -16,7 +16,7 @@ namespace Kognit.API.Application.Features.Employees.Queries.GetEmployees
     /// BaseRequestParameter - contains paging parameters
     /// To add filter/search parameters, add search properties to the body of this class
     /// </summary>
-    public class GetEmployeesQuery : QueryParameter, IRequest<PagedResponse<IEnumerable<Entity>>>
+    public class GetEmployeesQuery : QueryParameter, IRequest<PagedResponse<IEnumerable<DynamicEntity>>>
     {
         //examples:
         public string EmployeeNumber { get; set; }
@@ -27,7 +27,7 @@ namespace Kognit.API.Application.Features.Employees.Queries.GetEmployees
 
     }
 
-    public class GetAllEmployeesQueryHandler : IRequestHandler<GetEmployeesQuery, PagedResponse<IEnumerable<Entity>>>
+    public class GetAllEmployeesQueryHandler : IRequestHandler<GetEmployeesQuery, PagedResponse<IEnumerable<DynamicEntity>>>
     {
         private readonly IEmployeeRepositoryAsync _employeeRepository;
         private readonly IMapper _mapper;
@@ -59,7 +59,7 @@ namespace Kognit.API.Application.Features.Employees.Queries.GetEmployees
         /// <param name="request">The GetEmployeesQuery request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A PagedResponse containing the requested data.</returns>
-        public async Task<PagedResponse<IEnumerable<Entity>>> Handle(GetEmployeesQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResponse<IEnumerable<DynamicEntity>>> Handle(GetEmployeesQuery request, CancellationToken cancellationToken)
         {
             var validFilter = request;
             //filtered fields security
@@ -79,7 +79,7 @@ namespace Kognit.API.Application.Features.Employees.Queries.GetEmployees
             RecordsCount recordCount = entityEmployees.recordsCount;
 
             // response wrapper
-            return new PagedResponse<IEnumerable<Entity>>(data, validFilter.PageNumber, validFilter.PageSize, recordCount);
+            return new PagedResponse<IEnumerable<DynamicEntity>>(data, validFilter.PageNumber, validFilter.PageSize, recordCount);
         }
     }
 }

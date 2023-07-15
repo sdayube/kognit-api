@@ -4,7 +4,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kognit.API.Application.Features.Positions.Commands.CreatePosition
+namespace Kognit.API.Application.Features.Users.Commands.CreatePosition
 {
     public partial class InsertMockPositionCommand : IRequest<Response<int>>
     {
@@ -13,9 +13,9 @@ namespace Kognit.API.Application.Features.Positions.Commands.CreatePosition
 
     public class SeedPositionCommandHandler : IRequestHandler<InsertMockPositionCommand, Response<int>>
     {
-        private readonly IPositionRepositoryAsync _positionRepository;
+        private readonly IUserRepositoryAsync _positionRepository;
 
-        public SeedPositionCommandHandler(IPositionRepositoryAsync positionRepository)
+        public SeedPositionCommandHandler(IUserRepositoryAsync positionRepository)
         {
             _positionRepository = positionRepository;
         }
