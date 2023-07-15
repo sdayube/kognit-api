@@ -28,6 +28,7 @@ try
     builder.Services.AddSwaggerExtension();
     builder.Services.AddControllersExtension();
     builder.Services.AddCorsExtension();
+    builder.Services.AddRoutingExtension();
     builder.Services.AddHealthChecks();
     builder.Services.AddApiVersioningExtension();
     builder.Services.AddMvcCore().AddApiExplorer();

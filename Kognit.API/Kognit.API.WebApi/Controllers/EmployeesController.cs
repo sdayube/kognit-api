@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Kognit.API.WebApi.Controllers.v1
+namespace Kognit.API.WebApi.Controllers
 {
     [ApiVersion("1.0")]
-    public class EmployeesController : BaseApiController
+    [Route("users")]
+    public class EmployeesController : BaseController
     {
 
         /// <summary>

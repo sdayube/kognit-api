@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Kognit.API.WebApi.Controllers.v1
+namespace Kognit.API.WebApi.Controllers
 {
     [ApiVersion("1.0")]
-    public class PositionsController : BaseApiController
+    public class PositionsController : BaseController
     {
 
         /// <summary>
@@ -35,7 +35,6 @@ namespace Kognit.API.WebApi.Controllers.v1
         /// <param name="id">The Id of the position.</param>
         /// <returns>The position with the specified Id.</returns>
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<IActionResult> Get(Guid id)
         {
             return Ok(await Mediator.Send(new GetPositionByIdQuery { Id = id }));
@@ -47,39 +46,12 @@ namespace Kognit.API.WebApi.Controllers.v1
         /// <param name="command">The command containing the data for the new position.</param>
         /// <returns>A 201 Created response containing the newly created position.</returns>
         [HttpPost]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post(CreatePositionCommand command)
         {
             var resp = await Mediator.Send(command);
             return CreatedAtAction(nameof(Post), resp);
-        }
-
-        /// <summary>
-        /// Sends an InsertMockPositionCommand to the mediator.
-        /// </summary>
-        /// <param name="command">The command to be sent.</param>
-        /// <returns>The result of the command.</returns>
-        [HttpPost]
-        [Route("AddMock")]
-        //[Authorize]
-        public async Task<IActionResult> AddMock(InsertMockPositionCommand command)
-        {
-            return Ok(await Mediator.Send(command));
-        }
-
-        /// <summary>
-        /// Retrieves a paged list of positions.
-        /// </summary>
-        /// <param name="query">The query parameters for the paged list.</param>
-        /// <returns>A paged list of positions.</returns>
-        [HttpPost]
-        [Authorize]
-        [Route("Paged")]
-        public async Task<IActionResult> Paged(PagedPositionsQuery query)
-        {
-            return Ok(await Mediator.Send(query));
         }
 
         /// <summary>

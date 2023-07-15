@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using System;
 using System.Text.Json;
 
 namespace Kognit.API.WebApi.Extensions
@@ -25,7 +24,6 @@ namespace Kognit.API.WebApi.Extensions
                     {
                         Name = "Silvio Dayube Carigé",
                         Email = "scarige@gmail.com",
-                        Url = new Uri("https://www.linkedin.com/in/silvio-dayube/"),
                     }
                 });
             });
@@ -92,6 +90,15 @@ namespace Kognit.API.WebApi.Extensions
                 config.DefaultApiVersion = new ApiVersion(1, 0);
                 config.AssumeDefaultVersionWhenUnspecified = true;
             });
+        }
+
+        /// <summary>
+        ///     Adiciona o serviço de roteamento e configura para utilizar URLs em minúsculo.
+        /// </summary>
+        /// <param name="services"></param>
+        public static void AddRoutingExtension(this IServiceCollection services)
+        {
+            services.AddRouting(options => options.LowercaseUrls = true);
         }
     }
 }
