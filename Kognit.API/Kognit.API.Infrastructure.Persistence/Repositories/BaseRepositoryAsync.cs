@@ -29,7 +29,7 @@ namespace Kognit.API.Infrastructure.Persistence.Repository
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public async Task<(IEnumerable<DynamicEntity> data, RecordsCount recordsCount)> GetPaginatedReponseAsync(QueryParameter requestParams, Expression<Func<T, bool>> predicate)
+        public async Task<(IEnumerable<DynamicEntity<T>> data, RecordsCount recordsCount)> GetPaginatedReponseAsync(QueryParameter requestParams, Expression<Func<T, bool>> predicate)
         {
             var pageNumber = requestParams.PageNumber;
             var pageSize = requestParams.PageSize;

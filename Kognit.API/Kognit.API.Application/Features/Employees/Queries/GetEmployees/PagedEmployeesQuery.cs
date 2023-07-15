@@ -4,6 +4,7 @@ using Kognit.API.Application.Interfaces.Repositories;
 using Kognit.API.Application.Parameters;
 using Kognit.API.Application.Wrappers;
 using Kognit.API.Domain.Common;
+using Kognit.API.Domain.Entities;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Kognit.API.Application.Features.Employees.Queries.GetEmployees
 {
-    public partial class PagedEmployeesQuery : IRequest<PagedDataTableResponse<IEnumerable<DynamicEntity>>>
+    public partial class PagedEmployeesQuery : IRequest<PagedDataTableResponse<IEnumerable<DynamicEntity<Employee>>>>
     {
         //strong type input parameters
         public int Draw { get; set; } //page number
@@ -22,7 +23,7 @@ namespace Kognit.API.Application.Features.Employees.Queries.GetEmployees
         public IList<Column> Columns { get; set; } //select fields
     }
 
-    public class PageEmployeeQueryHandler : IRequestHandler<PagedEmployeesQuery, PagedDataTableResponse<IEnumerable<DynamicEntity>>>
+    public class PageEmployeeQueryHandler : IRequestHandler<PagedEmployeesQuery, PagedDataTableResponse<IEnumerable<DynamicEntity<Employee>>>>
     {
         private readonly IEmployeeRepositoryAsync _employeeRepository;
         private readonly IMapper _mapper;
@@ -54,7 +55,7 @@ namespace Kognit.API.Application.Features.Employees.Queries.GetEmployees
         /// <param name="request">The PagedEmployeesQuery request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A PagedDataTableResponse.</returns>
-        public async Task<PagedDataTableResponse<IEnumerable<DynamicEntity>>> Handle(PagedEmployeesQuery request, CancellationToken cancellationToken)
+        public async Task<PagedDataTableResponse<IEnumerable<DynamicEntity<Employee>>>> Handle(PagedEmployeesQuery request, CancellationToken cancellationToken)
         {
             var validFilter = new GetEmployeesQuery();
 
@@ -104,7 +105,7 @@ namespace Kognit.API.Application.Features.Employees.Queries.GetEmployees
             RecordsCount recordCount = entityEmployees.recordsCount;
 
             // response wrapper
-            return new PagedDataTableResponse<IEnumerable<DynamicEntity>>(data, request.Draw, recordCount);
+            return new PagedDataTableResponse<IEnumerable<DynamicEntity<Employee>>>(data, request.Draw, recordCount);
         }
     }
 }

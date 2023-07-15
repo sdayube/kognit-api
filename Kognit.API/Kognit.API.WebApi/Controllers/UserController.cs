@@ -1,4 +1,4 @@
-﻿using Kognit.API.Application.Features.Users.Commands.CreatePosition;
+﻿using Kognit.API.Application.Features.Users.Commands.CreateUser;
 using Kognit.API.Application.Features.Users.Commands.DeletePositionById;
 using Kognit.API.Application.Features.Users.Commands.UpdateUser;
 using Kognit.API.Application.Features.Users.Queries.GetUserById;

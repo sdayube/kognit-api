@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Kognit.API.Application.Helpers
 {
-    public class DataShapeHelper<T> : IDataShapeHelper<T>
+    public class DataShapeHelper<T> : IDataShapeHelper<T> where T : class
     {
         public PropertyInfo[] Properties { get; set; }
 
@@ -17,21 +17,21 @@ namespace Kognit.API.Application.Helpers
             Properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
         }
 
-        public IEnumerable<DynamicEntity> ShapeData(IEnumerable<T> entities, string fieldsString)
+        public IEnumerable<DynamicEntity<T>> ShapeData(IEnumerable<T> entities, string fieldsString)
         {
             var requiredProperties = GetRequiredProperties(fieldsString);
 
             return FetchData(entities, requiredProperties);
         }
 
-        public async Task<IEnumerable<DynamicEntity>> ShapeDataAsync(IEnumerable<T> entities, string fieldsString)
+        public async Task<IEnumerable<DynamicEntity<T>>> ShapeDataAsync(IEnumerable<T> entities, string fieldsString)
         {
             var requiredProperties = GetRequiredProperties(fieldsString);
 
             return await Task.Run(() => FetchData(entities, requiredProperties));
         }
 
-        public DynamicEntity ShapeData(T entity, string fieldsString)
+        public DynamicEntity<T> ShapeData(T entity, string fieldsString)
         {
             var requiredProperties = GetRequiredProperties(fieldsString);
 
@@ -64,9 +64,9 @@ namespace Kognit.API.Application.Helpers
             return requiredProperties;
         }
 
-        private IEnumerable<DynamicEntity> FetchData(IEnumerable<T> entities, IEnumerable<PropertyInfo> requiredProperties)
+        private IEnumerable<DynamicEntity<T>> FetchData(IEnumerable<T> entities, IEnumerable<PropertyInfo> requiredProperties)
         {
-            var shapedData = new List<DynamicEntity>();
+            var shapedData = new List<DynamicEntity<T>>();
 
             foreach (var entity in entities)
             {
@@ -77,9 +77,9 @@ namespace Kognit.API.Application.Helpers
             return shapedData;
         }
 
-        private DynamicEntity FetchDataForEntity(T entity, IEnumerable<PropertyInfo> requiredProperties)
+        private DynamicEntity<T> FetchDataForEntity(T entity, IEnumerable<PropertyInfo> requiredProperties)
         {
-            var shapedObject = new DynamicEntity();
+            var shapedObject = new DynamicEntity<T>();
 
             foreach (var property in requiredProperties)
             {

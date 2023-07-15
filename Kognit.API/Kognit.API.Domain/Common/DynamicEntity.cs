@@ -2,13 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace Kognit.API.Domain.Common
 {
-    public class DynamicEntity : DynamicObject, IXmlSerializable, IDictionary<string, object>
+    /// <summary>
+    ///     Representa uma entidade com propriedades dinâmicas, guardadas em um dicionário serializável.
+    /// </summary>
+    /// <typeparam name="TEntity">
+    ///     Entidade base para delimitação dos campos dinâmicos.
+    /// </typeparam>
+    public class DynamicEntity<TEntity> : DynamicObject, IXmlSerializable, IDictionary<string, object> where TEntity : class
     {
         private readonly string _root = "DynamicEntity";
         private readonly IDictionary<string, object> _expando = null;
@@ -31,9 +38,13 @@ namespace Kognit.API.Domain.Common
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
-            _expando[binder.Name] = value;
+            if (IsFieldValid(binder.Name))
+            {
+                _expando[binder.Name] = value;
+                return true;
+            }
 
-            return true;
+            return false;
         }
 
         public XmlSchema GetSchema()
@@ -64,20 +75,19 @@ namespace Kognit.API.Domain.Common
             foreach (var key in _expando.Keys)
             {
                 var value = _expando[key];
-                WriteLinksToXml(key, value, writer);
-            }
-        }
 
-        private void WriteLinksToXml(string key, object value, XmlWriter writer)
-        {
-            writer.WriteStartElement(key);
-            writer.WriteString(value.ToString());
-            writer.WriteEndElement();
+                writer.WriteStartElement(key);
+                writer.WriteString(value.ToString());
+                writer.WriteEndElement();
+            }
         }
 
         public void Add(string key, object value)
         {
-            _expando.Add(key, value);
+            if (IsFieldValid(key))
+            {
+                _expando.Add(key, value);
+            }
         }
 
         public bool ContainsKey(string key)
@@ -85,10 +95,7 @@ namespace Kognit.API.Domain.Common
             return _expando.ContainsKey(key);
         }
 
-        public ICollection<string> Keys
-        {
-            get { return _expando.Keys; }
-        }
+        public ICollection<string> Keys => _expando.Keys;
 
         public bool Remove(string key)
         {
@@ -100,26 +107,26 @@ namespace Kognit.API.Domain.Common
             return _expando.TryGetValue(key, out value);
         }
 
-        public ICollection<object> Values
-        {
-            get { return _expando.Values; }
-        }
+        public ICollection<object> Values => _expando.Values;
 
         public object this[string key]
         {
-            get
-            {
-                return _expando[key];
-            }
+            get => _expando[key];
             set
             {
-                _expando[key] = value;
+                if (IsFieldValid(key))
+                {
+                    _expando[key] = value;
+                }
             }
         }
 
         public void Add(KeyValuePair<string, object> item)
         {
-            _expando.Add(item);
+            if (IsFieldValid(item.Key))
+            {
+                _expando.Add(item);
+            }
         }
 
         public void Clear()
@@ -137,15 +144,9 @@ namespace Kognit.API.Domain.Common
             _expando.CopyTo(array, arrayIndex);
         }
 
-        public int Count
-        {
-            get { return _expando.Count; }
-        }
+        public int Count => _expando.Count;
 
-        public bool IsReadOnly
-        {
-            get { return _expando.IsReadOnly; }
-        }
+        public bool IsReadOnly => _expando.IsReadOnly;
 
         public bool Remove(KeyValuePair<string, object> item)
         {
@@ -160,6 +161,17 @@ namespace Kognit.API.Domain.Common
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        /// <summary>
+        ///     Verifica se o campo informado faz parte da entidade <typeparamref name="TEntity"/>.
+        /// </summary>
+        /// <param name="fieldName">Campo a ser verificado.</param>
+        /// <returns><see langword="true"/> se o campo for válido; <see langword="false"/> se não for.</returns>
+        private bool IsFieldValid(string fieldName)
+        {
+            var validFields = typeof(TEntity).GetProperties().Select(p => p.Name);
+            return validFields.Contains(fieldName);
         }
     }
 }

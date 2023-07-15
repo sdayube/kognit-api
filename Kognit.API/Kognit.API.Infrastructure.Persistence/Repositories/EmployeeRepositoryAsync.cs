@@ -45,7 +45,7 @@ namespace Kognit.API.Infrastructure.Persistence.Repositories
         /// </summary>
         /// <param name="requestParameters">The query parameters used to filter and page the data.</param>
         /// <returns>A tuple containing the paged list of employees and the total number of records.</returns>
-        public async Task<(IEnumerable<DynamicEntity> data, RecordsCount recordsCount)> GetPagedEmployeeResponseAsync(GetEmployeesQuery requestParameters)
+        public async Task<(IEnumerable<DynamicEntity<Employee>> data, RecordsCount recordsCount)> GetPagedEmployeeResponseAsync(GetEmployeesQuery requestParameters)
         {
             IQueryable<Employee> result;
 

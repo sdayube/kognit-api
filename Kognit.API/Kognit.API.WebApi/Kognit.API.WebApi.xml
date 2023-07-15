@@ -33,7 +33,7 @@
             <param name="id">The Id of the position.</param>
             <returns>The position with the specified Id.</returns>
         </member>
-        <member name="M:Kognit.API.WebApi.Controllers.UserController.Post(Kognit.API.Application.Features.Users.Commands.CreatePosition.CreatePositionCommand)">
+        <member name="M:Kognit.API.WebApi.Controllers.UserController.Post(Kognit.API.Application.Features.Users.Commands.CreateUser.CreatePositionCommand)">
             <summary>
             Creates a new position.
             </summary>

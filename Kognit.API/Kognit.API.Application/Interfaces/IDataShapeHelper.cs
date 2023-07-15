@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace Kognit.API.Application.Interfaces
 {
-    public interface IDataShapeHelper<T>
+    public interface IDataShapeHelper<T> where T : class
     {
-        IEnumerable<DynamicEntity> ShapeData(IEnumerable<T> entities, string fieldsString);
+        IEnumerable<DynamicEntity<T>> ShapeData(IEnumerable<T> entities, string fieldsString);
 
-        Task<IEnumerable<DynamicEntity>> ShapeDataAsync(IEnumerable<T> entities, string fieldsString);
+        Task<IEnumerable<DynamicEntity<T>>> ShapeDataAsync(IEnumerable<T> entities, string fieldsString);
 
-        DynamicEntity ShapeData(T entity, string fieldsString);
+        DynamicEntity<T> ShapeData(T entity, string fieldsString);
     }
 }

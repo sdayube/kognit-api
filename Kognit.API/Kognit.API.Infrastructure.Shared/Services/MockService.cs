@@ -10,13 +10,13 @@ namespace Kognit.API.Infrastructure.Shared.Services
 
 
         /// <summary>
-        /// Generates a list of positions using the PositionInsertBogusConfig class.
+        /// Generates a list of positions using the UserInsertBogusConfig class.
         /// </summary>
         /// <param name="rowCount">The number of positions to generate.</param>
         /// <returns>A list of generated positions.</returns>
         public List<User> GetPositions(int rowCount)
         {
-            var faker = new PositionInsertBogusConfig();
+            var faker = new UserInsertBogusConfig();
             return faker.Generate(rowCount);
         }
 
@@ -33,16 +33,9 @@ namespace Kognit.API.Infrastructure.Shared.Services
             return faker.Generate(rowCount);
         }
 
-
-
-        /// <summary>
-        /// Generates a list of seed positions using the PositionSeedBogusConfig class.
-        /// </summary>
-        /// <param name="rowCount">The number of seed positions to generate.</param>
-        /// <returns>A list of seed positions.</returns>
-        public List<User> SeedPositions(int rowCount)
+        public List<User> SeedUsers(int rowCount)
         {
-            var faker = new PositionSeedBogusConfig();
+            var faker = new UserSeedBogusConfig();
             return faker.Generate(rowCount);
         }
     }

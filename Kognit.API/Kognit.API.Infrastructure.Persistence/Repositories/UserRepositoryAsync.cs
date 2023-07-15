@@ -35,16 +35,7 @@ namespace Kognit.API.Infrastructure.Persistence.Repositories
                 .AllAsync(p => p.CPF != cpf);
         }
 
-        public async Task<bool> SeedDataAsync(int rowCount)
-        {
-            foreach (User user in _mockData.GetPositions(rowCount))
-            {
-                await AddAsync(user);
-            }
-            return true;
-        }
-
-        public async Task<(IEnumerable<DynamicEntity> data, RecordsCount recordsCount)> GetPaginatedUserReponseAsync(GetUsersQuery requestParams)
+        public async Task<(IEnumerable<DynamicEntity<User>> data, RecordsCount recordsCount)> GetPaginatedUserReponseAsync(GetUsersQuery requestParams)
         {
             var userName = requestParams.Name;
             var userCpf = requestParams.CPF;

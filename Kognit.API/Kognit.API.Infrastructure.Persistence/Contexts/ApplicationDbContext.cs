@@ -19,6 +19,7 @@ namespace Kognit.API.Infrastructure.Persistence.Contexts
             ILoggerFactory loggerFactory
             ) : base(options)
         {
+            Database.EnsureCreated();
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             _dateTime = dateTime;
             _loggerFactory = loggerFactory;
@@ -32,6 +33,7 @@ namespace Kognit.API.Infrastructure.Persistence.Contexts
                 {
                     case EntityState.Added:
                         entry.Entity.Created = _dateTime.NowUtc;
+                        entry.Entity.LastModified = _dateTime.NowUtc;
                         break;
 
                     case EntityState.Modified:
@@ -44,9 +46,10 @@ namespace Kognit.API.Infrastructure.Persistence.Contexts
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            var _mockData = this.Database.GetService<IMockService>();
-            var seedPositions = _mockData.SeedPositions(1000);
-            builder.Entity<User>().HasData(seedPositions);
+            var _mockService = Database.GetService<IMockService>();
+            var seedUsers = _mockService.SeedUsers(1000);
+
+            builder.Entity<User>().HasData(seedUsers);
 
             base.OnModelCreating(builder);
         }

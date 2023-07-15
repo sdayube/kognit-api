@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Kognit.API.Application.Features.Employees.Queries.GetEmployees;
-using Kognit.API.Application.Features.Users.Commands.CreatePosition;
+using Kognit.API.Application.Features.Users.Commands.CreateUser;
 using Kognit.API.Application.Features.Users.Queries.GetUsers;
 using Kognit.API.Domain.Entities;
 

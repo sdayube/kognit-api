@@ -16,6 +16,6 @@ namespace Kognit.API.Application.Interfaces.Repositories
     /// </returns>
     public interface IEmployeeRepositoryAsync : IRepositoryAsync<Employee>
     {
-        Task<(IEnumerable<DynamicEntity> data, RecordsCount recordsCount)> GetPagedEmployeeResponseAsync(GetEmployeesQuery requestParameters);
+        Task<(IEnumerable<DynamicEntity<Employee>> data, RecordsCount recordsCount)> GetPagedEmployeeResponseAsync(GetEmployeesQuery requestParameters);
     }
 }

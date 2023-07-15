@@ -45,4 +45,9 @@
     <ProjectReference Include="..\Kognit.API.Infrastructure.Shared\Kognit.API.Infrastructure.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logs\Error\" />
+    <Folder Include="Logs\Info\" />
+  </ItemGroup>
+
 </Project>

@@ -7,29 +7,17 @@ using System.Threading.Tasks;
 
 namespace Kognit.API.Application.Interfaces.Repositories
 {
-    /// <summary>
-    /// Repository interface for Position entity with asynchronous methods.
-    /// </summary>
-    /// <param name="positionNumber">Position number to check for uniqueness.</param>
-    /// <returns>
-    /// Task indicating whether the position number is unique.
-    /// </returns>
-    /// <param name="rowCount">Number of rows to seed.</param>
-    /// <returns>
-    /// Task indicating the completion of seeding.
-    /// </returns>
-    /// <param name="requestParameters">Parameters for the query.</param>
-    /// <param name="data">Data to be returned.</param>
-    /// <param name="recordsCount">Number of records.</param>
-    /// <returns>
-    /// Task containing the paged response.
-    /// </returns>    
     public interface IUserRepositoryAsync : IRepositoryAsync<User>
     {
-        Task<bool> IsUniqueCpfAsync(string positionNumber);
+        /// <summary>
+        ///     Valida se o CPF é único.
+        /// </summary>
+        /// <param name="cpf">Número do CPF sem caracteres especiais</param>
+        Task<bool> IsUniqueCpfAsync(string cpf);
 
-        Task<bool> SeedDataAsync(int rowCount);
-
-        Task<(IEnumerable<DynamicEntity> data, RecordsCount recordsCount)> GetPaginatedUserReponseAsync(GetUsersQuery requestParameters);
+        /// <summary>
+        ///    Retorna uma lista de usuários paginada após a aplicação dos filtros definidos na requisição.
+        /// </summary>
+        Task<(IEnumerable<DynamicEntity<User>> data, RecordsCount recordsCount)> GetPaginatedUserReponseAsync(GetUsersQuery requestParameters);
     }
 }

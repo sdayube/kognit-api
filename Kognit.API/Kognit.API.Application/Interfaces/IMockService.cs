@@ -9,6 +9,10 @@ namespace Kognit.API.Application.Interfaces
 
         List<Employee> GetEmployees(int rowCount);
 
-        List<User> SeedPositions(int rowCount);
+        /// <summary>
+        ///     Gera uma lista de usuários com dados randomizados.
+        /// </summary>
+        /// <param name="rowCount">Quantidade de entradas a serem geradas.</param>
+        List<User> SeedUsers(int rowCount);
     }
 }

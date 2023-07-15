@@ -13,7 +13,7 @@ namespace Kognit.API.Application.Interfaces
 
         Task<IEnumerable<T>> GetAllAsync();
 
-        Task<(IEnumerable<DynamicEntity> data, RecordsCount recordsCount)> GetPaginatedReponseAsync(QueryParameter requestParams, Expression<Func<T, bool>> predicate);
+        Task<(IEnumerable<DynamicEntity<T>> data, RecordsCount recordsCount)> GetPaginatedReponseAsync(QueryParameter requestParams, Expression<Func<T, bool>> predicate);
 
         Task<T> AddAsync(T entity);
 
