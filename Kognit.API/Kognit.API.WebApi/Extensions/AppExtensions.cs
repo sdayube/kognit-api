@@ -5,6 +5,9 @@ namespace Kognit.API.WebApi.Extensions
 {
     public static class AppExtensions
     {
+        /// <summary>
+        ///     Adiciona endpoints do Swagger
+        /// </summary>
         public static void UseSwaggerExtension(this IApplicationBuilder app)
         {
             app.UseSwagger();
@@ -14,6 +17,9 @@ namespace Kognit.API.WebApi.Extensions
             });
         }
 
+        /// <summary>
+        ///     Adiciona o middleware de tratamento de erros
+        /// </summary>
         public static void UseErrorHandlingMiddleware(this IApplicationBuilder app)
         {
             app.UseMiddleware<ErrorHandlerMiddleware>();
