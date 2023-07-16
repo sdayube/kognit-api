@@ -1,8 +1,9 @@
-﻿using Kognit.API.Application.Features.Users.Commands.CreateUser;
+﻿using AutoMapper;
+using Kognit.API.Application.Features.Users.Commands.CreateUser;
 using Kognit.API.Application.Features.Users.Commands.DeletePositionById;
-using Kognit.API.Application.Features.Users.Commands.UpdateUser;
 using Kognit.API.Application.Features.Users.Queries.GetUserById;
 using Kognit.API.Application.Features.Users.Queries.GetUsers;
+using Kognit.API.WebApi.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,6 +14,12 @@ namespace Kognit.API.WebApi.Controllers
     [ApiVersion("1.0")]
     public class UserController : BaseController
     {
+        private readonly IMapper _mapper;
+
+        public UserController(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
 
         /// <summary>
         ///     Retorna uma lista de usuários com os filtros e campos especificados.
@@ -51,15 +58,13 @@ namespace Kognit.API.WebApi.Controllers
         ///     Atualiza os dados um usuário pelo seu Id.
         /// </summary>
         /// <param name="id">Id do usuário a ser atualizado.</param>
-        /// <param name="command">Comando com as informações necessárias para a atualização do usuário.</param>
+        /// <param name="request">Requisição com as informações necessárias para a atualização do usuário.</param>
         /// <returns>Usuário após a atualização.</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, UpdateUserCommand command)
+        public async Task<IActionResult> Put(Guid id, UpdateUserRequest request)
         {
-            if (id != command.Id)
-            {
-                return BadRequest();
-            }
+            var command = request.ToCommand(id);
+
             return Ok(await Mediator.Send(command));
         }
 

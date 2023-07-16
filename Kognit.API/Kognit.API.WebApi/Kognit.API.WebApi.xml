@@ -37,12 +37,12 @@
             <param name="command">Comando com as informações necessárias para a criação do usuário.</param>
             <returns>Usuário criado.</returns>
         </member>
-        <member name="M:Kognit.API.WebApi.Controllers.UserController.Put(System.Guid,Kognit.API.Application.Features.Users.Commands.UpdateUser.UpdateUserCommand)">
+        <member name="M:Kognit.API.WebApi.Controllers.UserController.Put(System.Guid,Kognit.API.WebApi.Requests.UpdateUserRequest)">
             <summary>
                 Atualiza os dados um usuário pelo seu Id.
             </summary>
             <param name="id">Id do usuário a ser atualizado.</param>
-            <param name="command">Comando com as informações necessárias para a atualização do usuário.</param>
+            <param name="request">Requisição com as informações necessárias para a atualização do usuário.</param>
             <returns>Usuário após a atualização.</returns>
         </member>
         <member name="M:Kognit.API.WebApi.Controllers.UserController.Delete(System.Guid)">
