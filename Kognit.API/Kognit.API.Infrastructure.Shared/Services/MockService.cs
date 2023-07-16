@@ -7,29 +7,9 @@ namespace Kognit.API.Infrastructure.Shared.Services
 {
     public class MockService : IMockService
     {
-
-
-        /// <summary>
-        /// Generates a list of positions using the UserInsertBogusConfig class.
-        /// </summary>
-        /// <param name="rowCount">The number of positions to generate.</param>
-        /// <returns>A list of generated positions.</returns>
-        public List<User> GetPositions(int rowCount)
+        public List<Wallet> SeedWallets(int rowCount, IEnumerable<User> users)
         {
-            var faker = new UserInsertBogusConfig();
-            return faker.Generate(rowCount);
-        }
-
-
-
-        /// <summary>
-        /// Gets a list of Employees using the EmployeeBogusConfig class.
-        /// </summary>
-        /// <param name="rowCount">The number of Employees to generate.</param>
-        /// <returns>A list of Employees.</returns>
-        public List<Employee> GetEmployees(int rowCount)
-        {
-            var faker = new EmployeeBogusConfig();
+            var faker = new WalletSeedBogusConfig(users);
             return faker.Generate(rowCount);
         }
 

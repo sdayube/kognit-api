@@ -4,21 +4,6 @@
         <name>Kognit.API.WebApi</name>
     </assembly>
     <members>
-        <member name="M:Kognit.API.WebApi.Controllers.EmployeesController.Get(Kognit.API.Application.Features.Employees.Queries.GetEmployees.GetEmployeesQuery)">
-            <summary>
-            Gets a list of employees based on the specified filter.
-            </summary>
-            <param name="filter">The filter used to get the list of employees.</param>
-            <returns>A list of employees.</returns>
-        </member>
-        <member name="M:Kognit.API.WebApi.Controllers.EmployeesController.Paged(Kognit.API.Application.Features.Employees.Queries.GetEmployees.PagedEmployeesQuery)">
-            <summary>
-            Retrieves a paged list of employees.
-            Support Ngx-DataTables https://medium.com/scrum-and-coke/angular-11-pagination-of-zillion-rows-45d8533538c0
-            </summary>
-            <param name="query">The query parameters for the paged list.</param>
-            <returns>A paged list of employees.</returns>
-        </member>
         <member name="M:Kognit.API.WebApi.Controllers.UserController.Get(Kognit.API.Application.Features.Users.Queries.GetUsers.GetUsersQuery)">
             <summary>
                 Retorna uma lista de usuários com os filtros e campos especificados.
@@ -50,6 +35,17 @@
                 Apaga um usuário pelo seu Id.
             </summary>
             <returns>Resultado da operação.</returns>
+        </member>
+        <member name="M:Kognit.API.WebApi.Controllers.WalletsController.Get(Kognit.API.Application.Features.Wallets.Queries.GetWallets.GetWalletsQuery)">
+            <summary>
+                Retorna uma lista de carteiras com os filtros e campos especificados.
+            </summary>
+            <param name="filter">Query params utilizados para busca e filtragem.</param>
+        </member>
+        <member name="M:Kognit.API.WebApi.Controllers.WalletsController.Get(System.Guid)">
+            <summary>
+                Retorna uma carteira pelo seu Id.
+            </summary>
         </member>
         <member name="M:Kognit.API.WebApi.Extensions.AppExtensions.UseSwaggerExtension(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>

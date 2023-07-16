@@ -18,7 +18,7 @@ namespace Kognit.API.Application
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddScoped<IDataShapeHelper<User>, DataShapeHelper<User>>();
-            services.AddScoped<IDataShapeHelper<Employee>, DataShapeHelper<Employee>>();
+            services.AddScoped<IDataShapeHelper<Wallet>, DataShapeHelper<Wallet>>();
             services.AddScoped<IModelHelper, ModelHelper>();
             //services.AddScoped<IMockData, MockData>();
         }

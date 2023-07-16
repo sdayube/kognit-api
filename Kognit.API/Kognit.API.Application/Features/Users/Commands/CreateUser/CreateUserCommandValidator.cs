@@ -9,9 +9,9 @@ namespace Kognit.API.Application.Features.Users.Commands.CreateUser
     {
         private readonly IUserRepositoryAsync _userRepository;
 
-        public CreateUserCommandValidator(IUserRepositoryAsync positionRepository)
+        public CreateUserCommandValidator(IUserRepositoryAsync userRepository)
         {
-            _userRepository = positionRepository;
+            _userRepository = userRepository;
 
             RuleFor(p => p.Name)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
@@ -32,9 +32,9 @@ namespace Kognit.API.Application.Features.Users.Commands.CreateUser
                 .MustAsync(IsUniqueCpf).WithMessage("{PropertyName} already exists.");
         }
 
-        private async Task<bool> IsUniqueCpf(string positionNumber, CancellationToken cancellationToken)
+        private async Task<bool> IsUniqueCpf(string userCpf, CancellationToken cancellationToken)
         {
-            return await _userRepository.IsUniqueCpfAsync(positionNumber);
+            return await _userRepository.IsUniqueCpfAsync(userCpf);
         }
     }
 }

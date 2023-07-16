@@ -29,6 +29,8 @@ namespace Kognit.API.Infrastructure.Shared.Mock
             RuleFor(o => o.CPF, f => f.Person.Cpf(false));
             RuleFor(o => o.Created, f => f.Date.Past(1));
             RuleFor(o => o.LastModified, f => f.Date.Recent(1));
+
+            Ignore(p => p.Wallets);
         }
     }
 }

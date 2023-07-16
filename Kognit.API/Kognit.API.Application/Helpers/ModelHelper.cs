@@ -20,7 +20,7 @@ namespace Kognit.API.Application.Helpers
 
             foreach (var field in arrayFields)
             {
-                if (listFields.Contains(field.Trim(), StringComparer.OrdinalIgnoreCase))
+                if (listFields.Contains(field.Split(".")[0].Trim(), StringComparer.OrdinalIgnoreCase))
                     retString += field + ",";
             };
 

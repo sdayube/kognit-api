@@ -9,9 +9,9 @@ namespace Kognit.API.Application.Features.Users.Commands.UpdateUser
     {
         private readonly IUserRepositoryAsync _userRepository;
 
-        public UpdateUserCommandValidator(IUserRepositoryAsync positionRepository)
+        public UpdateUserCommandValidator(IUserRepositoryAsync userRepository)
         {
-            _userRepository = positionRepository;
+            _userRepository = userRepository;
 
             RuleFor(p => p.Name)
                 .NotEmpty().WithMessage("{PropertyName} is required.")

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Kognit.API.Application.Interfaces;
+﻿using Kognit.API.Application.Interfaces;
 using Kognit.API.Application.Interfaces.Repositories;
 using Kognit.API.Application.Parameters;
 using Kognit.API.Application.Wrappers;
@@ -23,13 +22,11 @@ namespace Kognit.API.Application.Features.Users.Queries.GetUsers
     public class GetAllUsersQueryHandler : IRequestHandler<GetUsersQuery, PaginatedResponse<IEnumerable<DynamicEntity<User>>>>
     {
         private readonly IUserRepositoryAsync _userRepository;
-        private readonly IMapper _mapper;
         private readonly IModelHelper _modelHelper;
 
-        public GetAllUsersQueryHandler(IUserRepositoryAsync userRepository, IMapper mapper, IModelHelper modelHelper)
+        public GetAllUsersQueryHandler(IUserRepositoryAsync userRepository, IModelHelper modelHelper)
         {
             _userRepository = userRepository;
-            _mapper = mapper;
             _modelHelper = modelHelper;
         }
 

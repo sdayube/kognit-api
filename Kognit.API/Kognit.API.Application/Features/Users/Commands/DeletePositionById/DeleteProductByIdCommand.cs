@@ -6,27 +6,27 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kognit.API.Application.Features.Users.Commands.DeletePositionById
+namespace Kognit.API.Application.Features.Users.Commands.DeleteUserById
 {
-    public class DeletePositionByIdCommand : IRequest<Response<Guid>>
+    public class DeleteUserByIdCommand : IRequest<Response<Guid>>
     {
         public Guid Id { get; set; }
 
-        public class DeletePositionByIdCommandHandler : IRequestHandler<DeletePositionByIdCommand, Response<Guid>>
+        public class DeleteUserByIdCommandHandler : IRequestHandler<DeleteUserByIdCommand, Response<Guid>>
         {
-            private readonly IUserRepositoryAsync _positionRepository;
+            private readonly IUserRepositoryAsync _userRepository;
 
-            public DeletePositionByIdCommandHandler(IUserRepositoryAsync positionRepository)
+            public DeleteUserByIdCommandHandler(IUserRepositoryAsync userRepository)
             {
-                _positionRepository = positionRepository;
+                _userRepository = userRepository;
             }
 
-            public async Task<Response<Guid>> Handle(DeletePositionByIdCommand command, CancellationToken cancellationToken)
+            public async Task<Response<Guid>> Handle(DeleteUserByIdCommand command, CancellationToken cancellationToken)
             {
-                var position = await _positionRepository.GetByIdAsync(command.Id);
-                if (position == null) throw new ApiException($"Position Not Found.");
-                await _positionRepository.DeleteAsync(position);
-                return new Response<Guid>(position.Id);
+                var user = await _userRepository.GetByIdAsync(command.Id);
+                if (user == null) throw new ApiException($"User not found.");
+                await _userRepository.DeleteAsync(user);
+                return new Response<Guid>(user.Id);
             }
         }
     }

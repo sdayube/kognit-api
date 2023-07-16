@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Kognit.API.Application.Features.Users.Commands.CreateUser;
-using Kognit.API.Application.Features.Users.Commands.DeletePositionById;
+using Kognit.API.Application.Features.Users.Commands.DeleteUserById;
 using Kognit.API.Application.Features.Users.Queries.GetUserById;
 using Kognit.API.Application.Features.Users.Queries.GetUsers;
 using Kognit.API.WebApi.Requests;
@@ -75,7 +75,7 @@ namespace Kognit.API.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            return Ok(await Mediator.Send(new DeletePositionByIdCommand { Id = id }));
+            return Ok(await Mediator.Send(new DeleteUserByIdCommand { Id = id }));
         }
     }
 }

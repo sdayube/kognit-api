@@ -5,9 +5,11 @@ namespace Kognit.API.Application.Interfaces
 {
     public interface IMockService
     {
-        List<User> GetPositions(int rowCount);
-
-        List<Employee> GetEmployees(int rowCount);
+        /// <summary>
+        ///     Gera uma lista de carteiras com dados randomizados.
+        /// </summary>
+        /// <param name="rowCount">Quantidade de entradas a serem geradas.</param>
+        List<Wallet> SeedWallets(int rowCount, IEnumerable<User> users);
 
         /// <summary>
         ///     Gera uma lista de usuários com dados randomizados.

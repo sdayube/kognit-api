@@ -20,13 +20,11 @@ namespace Kognit.API.Infrastructure.Persistence.Repositories
     public class UserRepositoryAsync : BaseRepositoryAsync<User>, IUserRepositoryAsync
     {
         private readonly DbSet<User> _userContext;
-        private readonly IMockService _mockData;
 
         public UserRepositoryAsync(ApplicationDbContext dbContext,
-            IDataShapeHelper<User> dataShaper, IMockService mockData) : base(dbContext, dataShaper)
+            IDataShapeHelper<User> dataShaper, IModelHelper modelHelper) : base(dbContext, dataShaper, modelHelper)
         {
             _userContext = dbContext.Set<User>();
-            _mockData = mockData;
         }
 
         public async Task<bool> IsUniqueCpfAsync(string cpf)
@@ -56,7 +54,6 @@ namespace Kognit.API.Infrastructure.Persistence.Repositories
 
             if (string.IsNullOrEmpty(userCpf) && string.IsNullOrEmpty(userName) && userBirthDate == null)
                 return null;
-
 
             if (!string.IsNullOrEmpty(userName))
                 predicate = predicate.Or(p => p.Name.Contains(userName.Trim()));

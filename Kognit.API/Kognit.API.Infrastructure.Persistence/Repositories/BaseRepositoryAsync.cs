@@ -13,20 +13,25 @@ using System.Threading.Tasks;
 
 namespace Kognit.API.Infrastructure.Persistence.Repository
 {
-    public class BaseRepositoryAsync<T> : IRepositoryAsync<T> where T : class
+    public class BaseRepositoryAsync<T> : IRepositoryAsync<T> where T : BaseEntity
     {
         private readonly ApplicationDbContext _dbContext;
-        private IDataShapeHelper<T> _dataShaper;
+        private readonly IDataShapeHelper<T> _dataShaper;
+        private readonly IModelHelper _modelHelper;
 
-        public BaseRepositoryAsync(ApplicationDbContext dbContext, IDataShapeHelper<T> dataShaper)
+        public BaseRepositoryAsync(ApplicationDbContext dbContext, IDataShapeHelper<T> dataShaper, IModelHelper modelHelper)
         {
             _dbContext = dbContext;
             _dataShaper = dataShaper;
+            _modelHelper = modelHelper;
         }
 
         public virtual async Task<T> GetByIdAsync(Guid id)
         {
-            return await _dbContext.Set<T>().FindAsync(id);
+            var fields = _modelHelper.GetModelFields<T>();
+            return await _dbContext.Set<T>()
+                .Select<T>("new(" + fields.Split(".")[0] + ")")
+                .FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<(IEnumerable<DynamicEntity<T>> data, RecordsCount recordsCount)> GetPaginatedReponseAsync(QueryParameter requestParams, Expression<Func<T, bool>> predicate)
@@ -48,12 +53,11 @@ namespace Kognit.API.Infrastructure.Persistence.Repository
 
             if (!string.IsNullOrWhiteSpace(fields))
             {
-                filteredResult = filteredResult.Select<T>("new(" + fields + ")");
+                filteredResult = filteredResult.Select<T>("new(" + fields.Split(".")[0] + ")");
             }
 
             var resultData = await filteredResult
                 .OrderBy($"{orderBy} {direction}")
-                .Select<T>("new(" + fields + ")")
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();

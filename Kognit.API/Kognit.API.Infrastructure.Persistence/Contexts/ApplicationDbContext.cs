@@ -48,9 +48,11 @@ namespace Kognit.API.Infrastructure.Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder builder)
         {
             var _mockService = Database.GetService<IMockService>();
-            var seedUsers = _mockService.SeedUsers(1000);
+            var seedUsers = _mockService.SeedUsers(50);
+            var seedWallets = _mockService.SeedWallets(50, seedUsers);
 
             builder.Entity<User>().HasData(seedUsers);
+            builder.Entity<Wallet>().HasData(seedWallets);
 
             base.OnModelCreating(builder);
         }
