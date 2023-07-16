@@ -33,6 +33,7 @@ namespace Kognit.API.Infrastructure.Persistence.Contexts
                 {
                     case EntityState.Added:
                         entry.Entity.Created = _dateTime.NowUtc;
+                        entry.Entity.LastModified = _dateTime.NowUtc;
                         break;
 
                     case EntityState.Modified:
