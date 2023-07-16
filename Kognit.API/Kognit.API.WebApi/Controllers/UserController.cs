@@ -3,8 +3,6 @@ using Kognit.API.Application.Features.Users.Commands.DeletePositionById;
 using Kognit.API.Application.Features.Users.Commands.UpdateUser;
 using Kognit.API.Application.Features.Users.Queries.GetUserById;
 using Kognit.API.Application.Features.Users.Queries.GetUsers;
-using Kognit.API.WebApi.Extensions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,10 +15,9 @@ namespace Kognit.API.WebApi.Controllers
     {
 
         /// <summary>
-        /// Gets a list of positions based on the provided filter.
+        ///     Retorna uma lista de usuários com os filtros e campos especificados.
         /// </summary>
-        /// <param name="filter">The filter used to query the positions.</param>
-        /// <returns>A list of positions.</returns>
+        /// <param name="filter">Query params utilizados para busca e filtragem.</param>
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] GetUsersQuery filter)
         {
@@ -28,10 +25,8 @@ namespace Kognit.API.WebApi.Controllers
         }
 
         /// <summary>
-        /// Gets a position by its Id.
+        ///     Retorna um usuário pelo seu Id.
         /// </summary>
-        /// <param name="id">The Id of the position.</param>
-        /// <returns>The position with the specified Id.</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -39,27 +34,26 @@ namespace Kognit.API.WebApi.Controllers
         }
 
         /// <summary>
-        /// Creates a new position.
+        ///     Cria um novo usuário.
         /// </summary>
-        /// <param name="command">The command containing the data for the new position.</param>
-        /// <returns>A 201 Created response containing the newly created position.</returns>
+        /// <param name="command">Comando com as informações necessárias para a criação do usuário.</param>
+        /// <returns>Usuário criado.</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post(CreatePositionCommand command)
+        public async Task<IActionResult> Post(CreateUserCommand command)
         {
             var resp = await Mediator.Send(command);
             return CreatedAtAction(nameof(Post), resp);
         }
 
         /// <summary>
-        /// Updates a position with the given id using the provided command.
+        ///     Atualiza os dados um usuário pelo seu Id.
         /// </summary>
-        /// <param name="id">The id of the position to update.</param>
-        /// <param name="command">The command containing the updated information.</param>
-        /// <returns>The updated position.</returns>
+        /// <param name="id">Id do usuário a ser atualizado.</param>
+        /// <param name="command">Comando com as informações necessárias para a atualização do usuário.</param>
+        /// <returns>Usuário após a atualização.</returns>
         [HttpPut("{id}")]
-        [Authorize(Policy = AuthorizationConsts.AdminPolicy)]
         public async Task<IActionResult> Put(Guid id, UpdateUserCommand command)
         {
             if (id != command.Id)
@@ -70,12 +64,10 @@ namespace Kognit.API.WebApi.Controllers
         }
 
         /// <summary>
-        /// Deletes a position by its Id.
+        ///     Apaga um usuário pelo seu Id.
         /// </summary>
-        /// <param name="id">The Id of the position to delete.</param>
-        /// <returns>The result of the deletion.</returns>
+        /// <returns>Resultado da operação.</returns>
         [HttpDelete("{id}")]
-        [Authorize(Policy = AuthorizationConsts.AdminPolicy)]
         public async Task<IActionResult> Delete(Guid id)
         {
             return Ok(await Mediator.Send(new DeletePositionByIdCommand { Id = id }));

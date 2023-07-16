@@ -21,39 +21,35 @@
         </member>
         <member name="M:Kognit.API.WebApi.Controllers.UserController.Get(Kognit.API.Application.Features.Users.Queries.GetUsers.GetUsersQuery)">
             <summary>
-            Gets a list of positions based on the provided filter.
+                Retorna uma lista de usuários com os filtros e campos especificados.
             </summary>
-            <param name="filter">The filter used to query the positions.</param>
-            <returns>A list of positions.</returns>
+            <param name="filter">Query params utilizados para busca e filtragem.</param>
         </member>
         <member name="M:Kognit.API.WebApi.Controllers.UserController.Get(System.Guid)">
             <summary>
-            Gets a position by its Id.
+                Retorna um usuário pelo seu Id.
             </summary>
-            <param name="id">The Id of the position.</param>
-            <returns>The position with the specified Id.</returns>
         </member>
-        <member name="M:Kognit.API.WebApi.Controllers.UserController.Post(Kognit.API.Application.Features.Users.Commands.CreateUser.CreatePositionCommand)">
+        <member name="M:Kognit.API.WebApi.Controllers.UserController.Post(Kognit.API.Application.Features.Users.Commands.CreateUser.CreateUserCommand)">
             <summary>
-            Creates a new position.
+                Cria um novo usuário.
             </summary>
-            <param name="command">The command containing the data for the new position.</param>
-            <returns>A 201 Created response containing the newly created position.</returns>
+            <param name="command">Comando com as informações necessárias para a criação do usuário.</param>
+            <returns>Usuário criado.</returns>
         </member>
         <member name="M:Kognit.API.WebApi.Controllers.UserController.Put(System.Guid,Kognit.API.Application.Features.Users.Commands.UpdateUser.UpdateUserCommand)">
             <summary>
-            Updates a position with the given id using the provided command.
+                Atualiza os dados um usuário pelo seu Id.
             </summary>
-            <param name="id">The id of the position to update.</param>
-            <param name="command">The command containing the updated information.</param>
-            <returns>The updated position.</returns>
+            <param name="id">Id do usuário a ser atualizado.</param>
+            <param name="command">Comando com as informações necessárias para a atualização do usuário.</param>
+            <returns>Usuário após a atualização.</returns>
         </member>
         <member name="M:Kognit.API.WebApi.Controllers.UserController.Delete(System.Guid)">
             <summary>
-            Deletes a position by its Id.
+                Apaga um usuário pelo seu Id.
             </summary>
-            <param name="id">The Id of the position to delete.</param>
-            <returns>The result of the deletion.</returns>
+            <returns>Resultado da operação.</returns>
         </member>
         <member name="M:Kognit.API.WebApi.Extensions.AppExtensions.UseSwaggerExtension(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>

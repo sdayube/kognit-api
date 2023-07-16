@@ -12,7 +12,7 @@ namespace Kognit.API.Application.Mappings
         {
             CreateMap<User, GetUsersViewModel>().ReverseMap();
             CreateMap<Employee, GetEmployeesViewModel>().ReverseMap();
-            CreateMap<CreatePositionCommand, User>();
+            CreateMap<CreateUserCommand, User>();
         }
     }
 }

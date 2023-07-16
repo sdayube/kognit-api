@@ -14,7 +14,7 @@ namespace Kognit.API.Application.Exceptions
         }
 
         public ApiException(string message, params object[] args)
-            : base(String.Format(CultureInfo.CurrentCulture, message, args))
+            : base(string.Format(CultureInfo.CurrentCulture, message, args))
         {
         }
 

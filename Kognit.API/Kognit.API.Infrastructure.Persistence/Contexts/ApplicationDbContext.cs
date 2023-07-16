@@ -4,8 +4,6 @@ using Kognit.API.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Logging;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Kognit.API.Infrastructure.Persistence.Contexts
 {
@@ -25,24 +23,6 @@ namespace Kognit.API.Infrastructure.Persistence.Contexts
             _loggerFactory = loggerFactory;
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-        {
-            foreach (var entry in ChangeTracker.Entries<BaseEntity>())
-            {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.Entity.Created = _dateTime.NowUtc;
-                        entry.Entity.LastModified = _dateTime.NowUtc;
-                        break;
-
-                    case EntityState.Modified:
-                        entry.Entity.LastModified = _dateTime.NowUtc;
-                        break;
-                }
-            }
-            return base.SaveChangesAsync(cancellationToken);
-        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -50,6 +30,17 @@ namespace Kognit.API.Infrastructure.Persistence.Contexts
             var seedUsers = _mockService.SeedUsers(1000);
 
             builder.Entity<User>().HasData(seedUsers);
+
+            builder.Entity<BaseEntity>()
+                .Property(u => u.Created)
+                .HasDefaultValueSql("GETDATE()")
+                .ValueGeneratedOnAdd();
+
+            builder.Entity<BaseEntity>()
+                .Property(u => u.LastModified)
+                .HasDefaultValueSql("GETDATE()")
+                .ValueGeneratedOnAddOrUpdate();
+
 
             base.OnModelCreating(builder);
         }

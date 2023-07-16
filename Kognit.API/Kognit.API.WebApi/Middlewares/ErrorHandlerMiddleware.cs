@@ -36,27 +36,23 @@ namespace Kognit.API.WebApi.Middlewares
                 switch (error)
                 {
                     case ApiException:
-                        // custom application error
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
                         break;
 
                     case ValidationException e:
-                        // custom application error
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
                         responseModel.Errors = e.Errors;
                         break;
 
                     case KeyNotFoundException:
-                        // not found error
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         break;
 
                     default:
-                        // unhandled error
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;
                         break;
                 }
-                // use ILogger to log the exception message
+
                 _logger.LogError(error.Message);
 
                 var result = JsonSerializer.Serialize(responseModel);
