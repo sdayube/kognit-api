@@ -22,7 +22,7 @@ namespace Kognit.API.Application.Features.Users.Commands.UpdateUser
             RuleFor(p => p.BirthDate)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
                 .NotNull()
-                .LessThanOrEqualTo(System.DateTime.Now.AddYears(-18)).WithMessage("{PropertyName} must have been at least 18 years ago.");
+                .LessThanOrEqualTo(DateTime.Now.AddYears(-18)).WithMessage("{PropertyName} must have been at least 18 years ago.");
 
             RuleFor(p => p.CPF)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
