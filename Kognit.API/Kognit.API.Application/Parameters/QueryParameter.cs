@@ -10,7 +10,7 @@ namespace Kognit.API.Application.Parameters
         DESC
     }
 
-    public class QueryParameter : PagingParameter
+    public class QueryParameter : PaginationParameter
     {
         private string _fields;
 

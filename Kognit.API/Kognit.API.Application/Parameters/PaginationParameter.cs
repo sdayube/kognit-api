@@ -1,6 +1,6 @@
 ﻿namespace Kognit.API.Application.Parameters
 {
-    public class PagingParameter
+    public class PaginationParameter
     {
         private const int maxPageSize = 200;
         public int PageNumber { get; set; } = 1;

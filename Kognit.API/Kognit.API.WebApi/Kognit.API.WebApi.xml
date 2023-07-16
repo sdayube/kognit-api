@@ -54,6 +54,14 @@
             <param name="command">Comando com as informações necessárias para a criação da carteira.</param>
             <returns>Usuário criado.</returns>
         </member>
+        <member name="M:Kognit.API.WebApi.Controllers.WalletsController.Put(System.Guid,Kognit.API.WebApi.Requests.UpdateWalletRequest)">
+            <summary>
+                Atualiza os dados uma carteira pelo seu Id.
+            </summary>
+            <param name="id">Id da carteira a ser atualizada.</param>
+            <param name="request">Requisição com as informações necessárias para a atualização da carteira.</param>
+            <returns>Carteira após a atualização.</returns>
+        </member>
         <member name="M:Kognit.API.WebApi.Extensions.AppExtensions.UseSwaggerExtension(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
                 Adiciona endpoints do Swagger

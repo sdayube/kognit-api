@@ -1,6 +1,7 @@
 ﻿using Kognit.API.Application.Features.Wallets.Commands.CreateWallet;
 using Kognit.API.Application.Features.Wallets.Queries.GetWalletById;
 using Kognit.API.Application.Features.Wallets.Queries.GetWallets;
+using Kognit.API.WebApi.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -45,6 +46,20 @@ namespace Kognit.API.WebApi.Controllers
         {
             var resp = await Mediator.Send(command);
             return CreatedAtAction(nameof(Post), resp);
+        }
+
+        /// <summary>
+        ///     Atualiza os dados uma carteira pelo seu Id.
+        /// </summary>
+        /// <param name="id">Id da carteira a ser atualizada.</param>
+        /// <param name="request">Requisição com as informações necessárias para a atualização da carteira.</param>
+        /// <returns>Carteira após a atualização.</returns>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Guid id, UpdateWalletRequest request)
+        {
+            var command = request.ToCommand(id);
+
+            return Ok(await Mediator.Send(command));
         }
     }
 }

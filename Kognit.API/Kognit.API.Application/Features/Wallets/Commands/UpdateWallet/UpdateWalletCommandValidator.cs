@@ -4,13 +4,13 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kognit.API.Application.Features.Wallets.Commands.CreateWallet
+namespace Kognit.API.Application.Features.Wallets.Commands.UpdateWallet
 {
-    public class CreateWalletCommandValidator : AbstractValidator<CreateWalletCommand>
+    public class UpdateWalletCommandValidator : AbstractValidator<UpdateWalletCommand>
     {
         private readonly IUserRepositoryAsync _userRepository;
 
-        public CreateWalletCommandValidator(IWalletRepositoryAsync walletRepository, IUserRepositoryAsync userRepository)
+        public UpdateWalletCommandValidator(IUserRepositoryAsync userRepository)
         {
             _userRepository = userRepository;
 
@@ -18,9 +18,6 @@ namespace Kognit.API.Application.Features.Wallets.Commands.CreateWallet
                 .NotEmpty().WithMessage("{PropertyName} is required.")
                 .NotNull()
                 .MaximumLength(50).WithMessage("{PropertyName} must not exceed 50 characters.");
-
-            RuleFor(p => p.Value)
-                .GreaterThanOrEqualTo(0).WithMessage("{PropertyName} must be greater than 0.");
 
             RuleFor(p => p.UserId)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
