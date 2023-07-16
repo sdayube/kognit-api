@@ -30,7 +30,7 @@ namespace Kognit.API.Infrastructure.Persistence.Repository
         {
             var fields = _modelHelper.GetModelFields<T>();
             return await _dbContext.Set<T>()
-                .Select<T>("new(" + fields.Split(".")[0] + ")")
+                .Select<T>("new(" + fields + ")")
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 
@@ -71,6 +71,7 @@ namespace Kognit.API.Infrastructure.Persistence.Repository
         {
             await _dbContext.Set<T>().AddAsync(entity);
             await _dbContext.SaveChangesAsync();
+
             return entity;
         }
 

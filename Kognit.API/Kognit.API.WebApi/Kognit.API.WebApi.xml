@@ -47,6 +47,13 @@
                 Retorna uma carteira pelo seu Id.
             </summary>
         </member>
+        <member name="M:Kognit.API.WebApi.Controllers.WalletsController.Post(Kognit.API.Application.Features.Wallets.Commands.CreateWallet.CreateWalletCommand)">
+            <summary>
+                Cria uma nova carteira.
+            </summary>
+            <param name="command">Comando com as informações necessárias para a criação da carteira.</param>
+            <returns>Usuário criado.</returns>
+        </member>
         <member name="M:Kognit.API.WebApi.Extensions.AppExtensions.UseSwaggerExtension(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
                 Adiciona endpoints do Swagger
