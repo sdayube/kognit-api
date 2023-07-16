@@ -62,6 +62,12 @@
             <param name="request">Requisição com as informações necessárias para a atualização da carteira.</param>
             <returns>Carteira após a atualização.</returns>
         </member>
+        <member name="M:Kognit.API.WebApi.Controllers.WalletsController.Delete(System.Guid)">
+            <summary>
+                Apaga uma carteira pelo seu Id.
+            </summary>
+            <returns>Resultado da operação.</returns>
+        </member>
         <member name="M:Kognit.API.WebApi.Extensions.AppExtensions.UseSwaggerExtension(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
                 Adiciona endpoints do Swagger

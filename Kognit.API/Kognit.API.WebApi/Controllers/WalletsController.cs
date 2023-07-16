@@ -1,4 +1,5 @@
 ﻿using Kognit.API.Application.Features.Wallets.Commands.CreateWallet;
+using Kognit.API.Application.Features.Wallets.Commands.DeleteWallet;
 using Kognit.API.Application.Features.Wallets.Queries.GetWalletById;
 using Kognit.API.Application.Features.Wallets.Queries.GetWallets;
 using Kognit.API.WebApi.Requests;
@@ -60,6 +61,16 @@ namespace Kognit.API.WebApi.Controllers
             var command = request.ToCommand(id);
 
             return Ok(await Mediator.Send(command));
+        }
+
+        /// <summary>
+        ///     Apaga uma carteira pelo seu Id.
+        /// </summary>
+        /// <returns>Resultado da operação.</returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            return Ok(await Mediator.Send(new DeleteWalletCommand { Id = id }));
         }
     }
 }
